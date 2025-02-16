@@ -8,22 +8,21 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class ExitAccountTest extends BaseClass {
+public class GoToPersonalAccountTest extends BaseClass {
 
-    String expectedUrl = "https://stellarburgers.nomoreparties.site/login";
+    String expectedUrl = "https://stellarburgers.nomoreparties.site/account/profile";
 
-    @DisplayName("Выход из аккаунта")
-    @Description("Проверка успешного выхода из аккаунта после авторизации")
+    @DisplayName("Переход в личный кабинет")
+    @Description("Проверка возможности перехода в личный кабинет после авторизации")
     @Test
-    public void exitFromAccountTest() {
+    public void goToPersonalAccountPageTest() {
         MainPage mainPage = new MainPage(driver);
         AuthorizationPage authorizationPage = new AuthorizationPage(driver);
         PersonalAccountPage personalAccountPage = new PersonalAccountPage(driver);
         mainPage.goToAuthorizationPageWithAuthorizationButton();
         authorizationPage.authorization(email, password);
         mainPage.goToAuthorizationPageWithPersonalAccountButton();
-        personalAccountPage.exitAccount();
-        authorizationPage.waitUntilAuthorizationPageOpen();
+        personalAccountPage.waitUntilPersonalAccountPageIsOpen();
         assertEquals(expectedUrl, driver.getCurrentUrl());
     }
 }

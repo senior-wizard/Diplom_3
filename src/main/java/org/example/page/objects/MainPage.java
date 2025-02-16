@@ -1,13 +1,28 @@
 package org.example.page.objects;
 
+import io.qameta.allure.Step;
+import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.concurrent.TimeUnit;
+
+@Getter
 public class MainPage {
 
     public WebDriver driver;
+
+    public MainPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public static String baseUrl() {
+        return "https://stellarburgers.nomoreparties.site";
+    }
+
+    private String classNameOnBunOrSauceOrIngredientButtonIsSelected = "tab_tab__1SPyG tab_tab_type_current__2BEPc pt-4 pr-10 pb-4 pl-10 noselect";
 
     //Локатор для заголовка "Соберите бургер"
     private By header = By.xpath(".//*[text()='Соберите бургер']");
@@ -22,70 +37,80 @@ public class MainPage {
     //Локатор для кнопки "Начинки"
     private By ingredientButton = By.xpath(".//span[text()='Начинки']");
     //Локатор для поля кнопки "Булки"
-    private By bunButtonField = By.xpath("//*[@id=\"root\"]/div/main/section[1]/div[1]/div[1]");
+    private By bunButtonField = By.xpath(".//div[@style='display: flex;']/div[1]");
     //Локатор для поля кнопки "Соусы"
-    private By sauceButtonField = By.xpath("//*[@id=\"root\"]/div/main/section[1]/div[1]/div[2]");
+    private By sauceButtonField = By.xpath(".//div[@style='display: flex;']/div[2]");
     //Локатор для поля кнопки "Начинки"
-    private By ingredientButtonField = By.xpath("//*[@id=\"root\"]/div/main/section[1]/div[1]/div[3]");
+    private By ingredientButtonField = By.xpath(".//div[@style='display: flex;']/div[3]");
 
-
-    public MainPage(WebDriver driver) {
-        this.driver = driver;
-    }
-
+    @Step("Ожидание открытия главной страницы")
     public void waitUntilMainPageOpen() {
         new WebDriverWait(driver, 5)
                 .until(ExpectedConditions.visibilityOfElementLocated(header));
     }
 
+    @Step("Нажать на кнопку 'Войти в аккаунт'")
     public void clickOnAuthorizationButton() {
         driver.findElement(authorizationButton).click();
     }
 
+    @Step("Нажать на кнопку 'Личный Кабинет'")
     public void clickOnPersonalAccountButton() {
         driver.findElement(personalAccountButton).click();
     }
 
+    @Step("Нажать на кнопку 'Булки'")
     public void clickOnBunButton() {
         driver.findElement(bunButton).click();
     }
 
+    @Step("Нажать на кнопку 'Соусы'")
     public void clickOnSauceButton() {
         driver.findElement(sauceButton).click();
     }
 
+    @Step("Нажать на кнопку 'Ингредиенты'")
     public void clickOnIngredientButton() {
         driver.findElement(ingredientButton).click();
     }
 
+    @Step("Ожидание переключения на вкладку 'Булки' в конструкторе")
     public void waitUntilGoToBuns() {
         new WebDriverWait(driver, 5)
-                .until(ExpectedConditions.attributeToBe(bunButtonField, "class" , "tab_tab__1SPyG tab_tab_type_current__2BEPc pt-4 pr-10 pb-4 pl-10 noselect"));
+                .until(ExpectedConditions.attributeToBe(bunButtonField, "class", classNameOnBunOrSauceOrIngredientButtonIsSelected));
     }
 
+    @Step("Ожидание переключения на вкладку 'Соусы' в конструкторе")
     public void waitUntilGoToSauces() {
         new WebDriverWait(driver, 5)
-                .until(ExpectedConditions.attributeToBe(sauceButtonField, "class" , "tab_tab__1SPyG tab_tab_type_current__2BEPc pt-4 pr-10 pb-4 pl-10 noselect"));
+                .until(ExpectedConditions.attributeToBe(sauceButtonField, "class", classNameOnBunOrSauceOrIngredientButtonIsSelected));
     }
 
+    @Step("Ожидание переключения на вкладку 'Ингредиенты' в конструкторе")
     public void waitUntilGoToIngredients() {
         new WebDriverWait(driver, 5)
-                .until(ExpectedConditions.attributeToBe(ingredientButtonField, "class" , "tab_tab__1SPyG tab_tab_type_current__2BEPc pt-4 pr-10 pb-4 pl-10 noselect"));
+                .until(ExpectedConditions.attributeToBe(ingredientButtonField, "class", classNameOnBunOrSauceOrIngredientButtonIsSelected));
     }
 
+    @Step("Явное ожидания")
+    public void waitTwoSeconds() {
+        try {
+            Thread.sleep(2000); // 2000 миллисекунд = 2 секунды
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
+    @Step("Переход на страницу через кнопку 'Войти в аккаунт' авторизации в 1 шаг")
     public void goToAuthorizationPageWithAuthorizationButton() {
         waitUntilMainPageOpen();
         clickOnAuthorizationButton();
     }
 
+    @Step("Переход на страницу через кнопку 'Личный кабинет' авторизации в 1 шаг")
     public void goToAuthorizationPageWithPersonalAccountButton() {
         waitUntilMainPageOpen();
         clickOnPersonalAccountButton();
     }
-
-
-
-
 }
 

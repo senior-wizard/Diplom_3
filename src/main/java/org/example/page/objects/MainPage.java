@@ -112,5 +112,20 @@ public class MainPage {
         waitUntilMainPageOpen();
         clickOnPersonalAccountButton();
     }
+
+    @Step("Получение атрибута 'class' у кнопки 'Булки'")
+    public String getBunButtonAttribute() {
+        return driver.findElement(bunButtonField).getAttribute("class");
+    }
+
+    @Step("Получение атрибута 'class' у кнопки 'Соусы'")
+    public String getSauceButtonAttribute() {
+        return driver.findElement(sauceButtonField).getAttribute("class");
+    }
+
+    @Step("Получение атрибута 'class' у кнопки 'Начинки'")
+    public String  getIngredientButtonAttribute() {
+        return driver.findElement(ingredientButtonField).getAttribute("class");
+    }
 }
 

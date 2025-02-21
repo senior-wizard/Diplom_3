@@ -21,7 +21,7 @@ public class ConstructorButtonsTest extends BaseClassForConstructorButtonsTest {
         mainPage.waitUntilGoToSauces();
         mainPage.clickOnBunButton();
         mainPage.waitUntilGoToBuns();
-        assertEquals(classNameOnBunOrSauceOrIngredientButtonIsSelected, driver.findElement(mainPage.getBunButtonField()).getAttribute("class"));
+        assertEquals(classNameOnBunOrSauceOrIngredientButtonIsSelected, mainPage.getBunButtonAttribute());
     }
 
     @DisplayName("Переход во вкладку 'Соусы'")
@@ -32,7 +32,7 @@ public class ConstructorButtonsTest extends BaseClassForConstructorButtonsTest {
         mainPage.clickOnSauceButton();
         mainPage.waitUntilGoToSauces();
         mainPage.waitTwoSeconds();
-        assertEquals(classNameOnBunOrSauceOrIngredientButtonIsSelected, driver.findElement(mainPage.getSauceButtonField()).getAttribute("class"));
+        assertEquals(classNameOnBunOrSauceOrIngredientButtonIsSelected, mainPage.getSauceButtonAttribute());
     }
 
     @DisplayName("Переход во вкладку 'Начинки'")
@@ -42,6 +42,6 @@ public class ConstructorButtonsTest extends BaseClassForConstructorButtonsTest {
         MainPage mainPage = new MainPage(driver);
         mainPage.clickOnIngredientButton();
         mainPage.waitUntilGoToIngredients();
-        assertEquals(classNameOnBunOrSauceOrIngredientButtonIsSelected, driver.findElement(mainPage.getIngredientButtonField()).getAttribute("class"));
+        assertEquals(classNameOnBunOrSauceOrIngredientButtonIsSelected, mainPage.getIngredientButtonAttribute());
     }
 }
